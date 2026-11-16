@@ -1,4 +1,4 @@
-
+ // Punto 4.
 #include <iostream>  // Permite utilizar cout y cin para mostrar y recibir datos
 #include <vector>    // Permite almacenar varios números en un vector
 #include <cstdlib>   // Permite utilizar rand() y srand() para números aleatorios con ayudita de la hora
@@ -13,13 +13,13 @@ int factorial(int numero) {
 
     // Multiplica los números desde 1 hasta el número recibido
     for (int i = 1; i <= numero; i++) {
-        resultado = resultado * i;
+        resultado = resultado * i; // Multiplica el resultado por el valor actual de i
     }
 
     return resultado; // Devuelve el factorial calculado
 }
 
-int main() {
+int main() { // Aquí comienza el programita
 
     srand(time(0)); // Utilizamos la hora del pc para no repetir la misma generación de num cuando lo ejecutemos (me costó entender)
 
@@ -30,8 +30,8 @@ int main() {
 
     // Comprueba que N sea positivo y que la persona no haya puesto un negativo
     while (N <= 0) {
-        cout << "Ingrese un numero positivo: ";
-        cin >> N;
+        cout << "Ingrese un numero positivo: "; //Solicita nuevamente un número válido
+        cin >> N; //Guarda el nuevo valor ingresado
     }
 
     vector<int> numeros; // Crea un vector vacío para guardar los números
@@ -44,18 +44,19 @@ int main() {
         numeros.push_back(numero); // Guarda cada número en el vector
     }
 
-    cout << "\nNumeros generados: ";
+    cout << "\nNumeros generados: "; //Muestra el mensaje antes de mostrar los números
 
-    // Muestra los números almacenados
+    // Recorre el vector para mostrar los números
     for (int i = 0; i < numeros.size(); i++) {
-        cout << numeros[i] << " ";
+        cout << numeros[i] << " "; // Muestra cada elemento del vector
     }
 
-    cout << "\n\nFactoriales de los numeros:\n";
+    cout << "\n\nFactoriales de los numeros:\n"; // Muestra el título de los resultados
 
-    // Calcula y muestra el factorial de cada elemento
+    // Recorre el vector para calcular el factorial de cada elemento
     for (int i = 0; i < numeros.size(); i++) {
 
+         // Muestra el número generado y llama a la función para calcular su factorial
         cout << numeros[i] << "! = "
              << factorial(numeros[i]) << endl;
     }

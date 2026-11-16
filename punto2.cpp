@@ -1,4 +1,4 @@
-
+ // Punto 2.
 #include <iostream>  // Permite utilizar cout y cin para mostrar y recibir datos
 #include <vector>    // Permite almacenar varios números en un vector
 #include <cstdlib>   // Permite utilizar rand() y srand() para números aleatorios con ayudita de la hora 
@@ -17,8 +17,8 @@ int main() { // Aquí comienza el programita
 
     // Comprueba que N sea positivo y que la persona no haya puesto un negativo
     while (N <= 0) {
-        cout << "Ingrese un numero positivo: ";
-        cin >> N;
+        cout << "Ingrese un numero positivo: "; //Solicita nuevamente un número válido
+        cin >> N; //Guarda el nuevo valor ingresado 
     }
 
     vector<int> numeros; // Crea un vector vacío para guardar los números
@@ -39,34 +39,34 @@ int main() { // Aquí comienza el programita
     // Calcula la media
     double media = (double)suma / N;
 
-    cout << "\nNumeros generados: ";
+    cout << "\nNumeros generados: "; //Muestra el mensaje antes de mostrar los números
 
     // Recorre el vector para mostrar los números
     for (int i = 0; i < N; i++) {
-        cout << numeros[i] << " ";
+        cout << numeros[i] << " "; // Muestra cada elemento del vector
     }
 
-    cout << "\nLa media es: " << media << endl;
+    cout << "\nLa media es: " << media << endl; // Muestra el resultado de la media
 
-    vector<int> mayores; // Segundo vector para poder guardar los mayores que la media
+    vector<int> mayores; // Un segundo vector para poder guardar los mayores que la media
 
     // Busca los números que superan la media que tenemos 
     for (int i = 0; i < N; i++) {
 
-        if (numeros[i] > media) {
-            mayores.push_back(numeros[i]);
+        if (numeros[i] > media) { // Comprueba si el número actual es mayor a la media que nos dio
+            mayores.push_back(numeros[i]); // Guarda el número en el segundo vector
         }
 
     }
 
-    cout << "Numeros mayores que la media: ";
+    cout << "Numeros mayores que la media: "; // Muestra el mensaje de los números encontrados 
 
     // Muestra los números guardados en el segundo vector, un poco obvi, pero oki, por si las moscas
     for (int i = 0; i < mayores.size(); i++) {
-        cout << mayores[i] << " ";
+        cout << mayores[i] << " "; // Muestra cada número almacenado en el segundo vector
     }
 
-    cout << endl;
+    cout << endl; // Esto realiza el salto de línea al terminar de mostrar
 
     return 0; // Aquí termina el programa, Mar feliz :3
     // Ola, profe
