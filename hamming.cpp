@@ -2,7 +2,7 @@
 // Proyecto final: Distancia de Hamming en secuencias de ADN
 
 
-//Integrantes: Marian Caicedo, Anyerith Sequeda, Michelle Mejía, Angie Rodríguez
+//Integrantes: Marian Caicedo, Anyerith Sequeda, Michell Mejía, Angie Rodríguez
 // ===================================================================
 
 #include <iostream> // cout y cin: escribir en pantalla y leer del teclado
