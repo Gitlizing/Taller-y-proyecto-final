@@ -1,8 +1,8 @@
 // ===================================================================
 // Proyecto final: Distancia de Hamming en secuencias de ADN
-// Código base
 
-//Integrantes: Marian Caicedo, Anyeriyh Sequeda, Michelle Mejía, Y Angie Rodríguez
+
+//Integrantes: Marian Caicedo, Anyerith Sequeda, Michelle Mejía, Angie Rodríguez
 // ===================================================================
 
 #include <iostream> // cout y cin: escribir en pantalla y leer del teclado
@@ -11,6 +11,9 @@
 #include <cctype> // toupper: convertir una letra a mayúscula
 #include <iomanip> // setprecision: controlar los decimales al imprimir
 using namespace std;
+
+
+//Separa la línea en dos secuencias con un  único separador (espacio)
 
 bool separarPareja(const string &linea, string &seq1, string &seq2) {
     int pos = -1;
@@ -34,7 +37,7 @@ bool separarPareja(const string &linea, string &seq1, string &seq2) {
 }
 
 // -------------------------------------------------------------------
-// Parte A — pruebas de las funciones básicas
+// Parte A - funciones básicas
 
 //1. Devuelve una copia de s con todas sus letras en mayúscula
 string aMayusculas(string s){               
@@ -70,8 +73,8 @@ int distanciaHamming(const string &a, const string &b){
 //4. Devuelve (L − d) / L × 100, donde d es la distancia y L la longitud.
 double porcentajeIdentidad(int d, int L){
     
-    double L_double = static_cast<double>(L);             // Convertir L a double para la división (Ldebe ser != 0)
-    return ((L_double - d) / L_double) * 100.0;
+    double longitud = static_cast<double>(L);             // Convertir L a double para la división (Ldebe ser != 0)
+    return ((longitud - d) / longitud) * 100.0;
 
 }
 
@@ -95,10 +98,11 @@ double contenidoGC(const int conteo[4], int L) {
     return (conteo[1] + conteo[2]) * 100.0 / L; // El 100 con decimal solo evita la ddivisión entera
 }
 
+//Cuenta los nucleótidos de s y mueestra en una línea los conteos 
 void mostrarConteos(const string &s) {
     int conteo[4];
     contarNucleotidos(s, conteo);
-    cout << s << " A=" << conteo[0] << " C=" << conteo[1]
+    cout << "   " << s << " A=" << conteo[0] << " C=" << conteo[1]
          << " G=" << conteo[2] << " T=" << conteo[3]
          << " GC=" << contenidoGC(conteo, s.length()) << "%" << endl;
 }
@@ -191,6 +195,8 @@ seq2 = aMayusculas(seq2);
 
 cout << "Pareja " << numPareja << ": " << seq1 << " vs " << seq2 << " -> ";
 
+
+//Validación del orden, reporta errores de caracteres inválidos y luego longitudes.
 if (!esValida(seq1) || !esValida(seq2)) {
     cout << "Error: caracteres inválidos" << endl;
 } else if (seq1.length() != seq2.length()) {
