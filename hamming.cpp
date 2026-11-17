@@ -1,18 +1,62 @@
 // ===================================================================
-2 // Proyecto final: Distancia de Hamming en secuencias de ADN
-3 // Código base
-4 // ===================================================================
-5
-6 #include <iostream> // cout y cin: escribir en pantalla y leer del teclado
-7 #include <fstream> // ifstream: leer archivos de texto
-8 #include <string> // string: cadenas de caracteres
-9 #include <cctype> // toupper: convertir una letra a mayúscula
-10 #include <iomanip> // setprecision: controlar los decimales al imprimir
-11 using namespace std;
-12
-13 // -------------------------------------------------------------------
-14 // Incluir aquí el código que ejecute lo solicitado en el enunciado
-15 // (funciones de las Partes A y B).
+// Proyecto final: Distancia de Hamming en secuencias de ADN
+// Código base
+
+//Integrantes: Marian Caicedo, Anyeriyh Sequeda, Michelle Mejía, Y Angie Rodríguez
+// ===================================================================
+
+#include <iostream> // cout y cin: escribir en pantalla y leer del teclado
+#include <fstream> // ifstream: leer archivos de texto
+#include <string> // string: cadenas de caracteres
+#include <cctype> // toupper: convertir una letra a mayúscula
+#include <iomanip> // setprecision: controlar los decimales al imprimir
+using namespace std;
+
+// -------------------------------------------------------------------
+// Parte A — pruebas de las funciones básicas
+
+//1. Devuelve una copia de s con todas sus letras en mayúscula
+string aMayusculas(string s){               
+    for (int i=0; i<s.length(); i++){
+        s[i] = toupper (s[i]);
+    }
+    return s;
+}
+
+//2. Devuelve true si s solo contiene A, C, G o T. Recibe la secuencia ya en mayúsculas.
+bool esValida(const string &s){
+    for (int i=0; i<s.length();  i++){
+        // una condición, si llega a encontrar un caracter diferete de ACGT, pone false
+        if (s[i] != 'A' && s[i] != 'C' && s[i] != 'G' && s[i] != 'T'){
+            return false;
+        }       
+    }
+    return true;
+}
+
+
+//3. Cuenta las posiciones en que difieren a y b. Se llama solo cuando ambas tienen la misma longitud.
+int distanciaHamming(const string &a, const string &b){
+    int d = 0;
+    for (int i = 0; i < a.length(); i++){
+        if (a[i] != b[i]){
+            d++;
+        }
+    }
+    return d;
+}
+
+//4. Devuelve (L − d) / L × 100, donde d es la distancia y L la longitud.
+double porcentajeIdentidad(int d, int L){
+    
+    double L_double = static_cast<double>(L);             // Convertir L a double para la división (Ldebe ser != 0)
+    return ((L_double - d) / L_double) * 100.0;
+
+}
+
+// Incluir aquí el código que ejecute lo solicitado en el enunciado
+15 // (funciones de las Parte B).
+
 16 // -------------------------------------------------------------------
 // -------------------------------------------------------------------
 20 // separarPareja
