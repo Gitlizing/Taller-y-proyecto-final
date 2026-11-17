@@ -106,111 +106,115 @@ void mostrarConteos(const string &s) {
          << " G=" << conteo[2] << " T=" << conteo[3]
          << " GC=" << contenidoGC(conteo, s.length()) << "%" << endl;
 }
+// PARTE C (Persona C)
+//
+// procesarPareja: valida una pareja (ya con formato correcto) y
+// muestra su resultado o el primer error encontrado.
+// Orden de revisión (sección 3.2):
+//   1. convertir ambas secuencias a mayúsculas
+//   2. caracteres inválidos
+//   3. longitudes diferentes
+//   4. si todo está bien, calcular y mostrar resultados
+// -------------------------------------------------------------------
+void procesarPareja(int numPareja, string seq1, string seq2) {
+    seq1 = aMayusculas(seq1);
+    seq2 = aMayusculas(seq2);
 
+    cout << "Pareja " << numPareja << ": " << seq1 << " vs " << seq2
+         << " -> ";
 
- int main() {
- // ---------------------------------------------------------------
- // Pedir el nombre del archivo y abrirlo
- // ---------------------------------------------------------------
- string nombreArchivo;
-  cout << "Nombre del archivo: ";
- cin >> nombreArchivo; // lee una palabra (el nombre no debe
- // tener espacios, p. ej. secuencias.txt)
- cout << endl;
+    if (!esValida(seq1) || !esValida(seq2)) {
+        cout << "Error: caracteres inválidos" << endl;
+        return;
+    }
 
- // 'ifstream' (input file stream) es un flujo de entrada asociado
- // a un archivo. Se usa igual que 'cin', pero los datos vienen del
- // archivo en lugar del teclado. Al crearlo con el nombre, intenta
- // abrir el archivo. El archivo debe estar en la misma carpeta
- // desde donde se ejecuta el programa (o escribir la ruta completa).
- ifstream archivo(nombreArchivo);
+    if (seq1.length() != seq2.length()) {
+        cout << "Error: longitudes diferentes" << endl;
+        return;
+    }
 
- // is_open() devuelve false si el archivo no se pudo abrir: no
- // existe, el nombre está mal escrito o no hay permisos.
- // En ese caso no tiene sentido continuar: terminamos el programa.
- // 'return 1' le indica al sistema operativo que hubo un error
- // ('return 0', al final, indica que todo salió bien).
- if (!archivo.is_open()) {
- cout << "Error: no se pudo abrir el archivo." << endl;
- return 1;
- }
-
- // 'fixed' y 'setprecision(1)' hacen que todos los números con
- // decimales (double) que se impriman de aquí en adelante muestren
- // exactamente un decimal: 66.7 en lugar de 66.6667.
- cout << fixed << setprecision(1);
-
- // ---------------------------------------------------------------
- // 2. Leer el archivo línea por línea
- // ---------------------------------------------------------------
- string linea; // aquí se guarda cada línea leída
- int numPareja = 0; // cuántas parejas con formato correcto van
-
-
- // getline(archivo, linea) lee la línea completa siguiente del
- // archivo (hasta el salto de línea, sin incluirlo) y la guarda en
- // 'linea'. Devuelve un valor que se evalúa como verdadero si logró
- // leer algo, y como falso cuando ya no quedan líneas. Por eso el
- // ciclo 'while' se repite una vez por cada línea y se detiene
- // solo al llegar al final del archivo.
- //
- // Se usa getline y no 'archivo >> linea' porque >> se detiene en
-// el primer espacio, y aquí necesitamos la línea entera.
- while (getline(archivo, linea)) {
-
- // Los archivos creados en Windows terminan cada línea con dos
- // caracteres: '\r' y '\n'. getline quita el '\n' pero deja el
- // '\r' al final, invisible en pantalla, y haría que "ATGGCT\r"
- // tuviera un carácter inválido. Si el último carácter es '\r',
- // lo borramos con erase(posición).
- if (!linea.empty() && linea[linea.length() - 1] == '\r') {
- linea.erase(linea.length() - 1);
- }
-
- // Una línea vacía no tiene datos: 'continue' salta el resto
- // del cuerpo del ciclo y pasa directamente a leer la siguiente.
- if (linea.empty()) {
- continue;
- }
-
- // Intentamos dividir la línea en dos secuencias. Si el formato
- // es incorrecto, avisamos y pasamos a la siguiente línea sin
- // contarla como pareja.
- string seq1, seq2;
- if (!separarPareja(linea, seq1, seq2)) {
- cout << "Aviso: línea ignorada por formato incorrecto: "
- << linea << endl;
- continue;
- }
-
- // Si llegamos aquí, la línea tiene formato correcto: es una
- // pareja nueva y le asignamos su número.
- numPareja++;
- // -----------------------------------------------------------
- // Incluir aquí el código que ejecute lo solicitado en el
- // enunciado para cada pareja.
-// -----------------------------------------------------------
- seq1 = aMayusculas(seq1);
-seq2 = aMayusculas(seq2);
-
-cout << "Pareja " << numPareja << ": " << seq1 << " vs " << seq2 << " -> ";
-
-
-//Validación del orden, reporta errores de caracteres inválidos y luego longitudes.
-if (!esValida(seq1) || !esValida(seq2)) {
-    cout << "Error: caracteres inválidos" << endl;
-} else if (seq1.length() != seq2.length()) {
-    cout << "Error: longitudes diferentes" << endl;
-} else {
+    int L = seq1.length();
     int d = distanciaHamming(seq1, seq2);
-    cout << "Distancia: " << d << " | Identidad: "
-         << porcentajeIdentidad(d, seq1.length()) << "%" << endl;
+    cout << "Distancia: " << d
+         << " | Identidad: " << porcentajeIdentidad(d, L) << "%" << endl;
+
     mostrarConteos(seq1);
     mostrarConteos(seq2);
 }
+
+// -------------------------------------------------------------------
+// separarPareja (código base, sin cambios)
+// -------------------------------------------------------------------
+bool separarPareja(const string &linea, string &seq1, string &seq2) {
+    int pos = -1;
+
+    for (int i = 0; i < linea.length(); i++) {
+        if (linea[i] == ' ' || linea[i] == ',') {
+            if (pos != -1) {
+                return false;
+            }
+            pos = i;
+        }
+    }
+
+    if (pos <= 0 || pos == linea.length() - 1) {
+        return false;
+    }
+
+    seq1 = linea.substr(0, pos);
+    seq2 = linea.substr(pos + 1);
+    return true;
 }
-// Cerramos el archivo: ya no lo necesitamos. (Se cerraría solo al
-// terminar el programa, pero cerrarlo explícitamente es buena// costumbre.)
- archivo.close(); 
- return 0;
- }
+
+
+int main() {
+    //primero pide el nombre del archivo y lo abre
+    string nombreArchivo;
+    cout <<"Nombre del archivo: ";
+    cin >> nombreArchivo;
+    cout << endl;
+
+    // ifstream es para que lea los datos que tiene el archivo q el user puso
+    ifstream archivo(nombreArchivo);
+
+    //Return 1 para que le diga al pograma que hubo un error
+    if (!archivo.is_open()) {
+        cout << "Error: no se pudo abrir el archivo." << endl;
+        return 1;
+    }
+
+    //fixed es para referirse a las cifras decimales
+    //setprecision dice cuantas cifras decimales se quieren mostrar, en este caso 1.
+    cout << fixed << setprecision(1);
+
+    // ahora lee el archivo línea por línea
+    string linea;
+    int numPareja = 0; //contador de parejas correctas
+
+    while (getline(archivo, linea)) {
+
+        //Quita el '\r' de los archivos creados en Windows
+        if (!linea.empty() && linea[linea.length() - 1] == '\r') {
+            linea.erase(linea.length() - 1);
+        }
+
+        // si la linea esta vacia se salta sin mensaje y sin numerarla
+        if (linea.empty()) {
+            continue;
+        }
+
+        //se separan las dos secuencias y se mira si son correctas 
+        string seq1, seq2;
+        if (!separarPareja(linea, seq1, seq2)) {
+            cout << "Aviso: línea ignorada por formato incorrecto: "
+                 << linea << endl;
+            continue;
+        }
+
+        //1si el formato esta bien entonces se cuenta como una pareja nueva
+        numPareja++;
+        procesarPareja(numPareja, seq1, seq2);
+    }
+
+    archivo.close();
+    return 0;
