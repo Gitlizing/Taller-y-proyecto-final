@@ -13,7 +13,7 @@
 using namespace std;
 
 
-//Separa la línea en dos secuencias con un  único separador (espacio)
+//Separa la línea en dos secuencias con un  único separador (espacio o coma)
 
 bool separarPareja(const string &linea, string &seq1, string &seq2) {
     int pos = -1;
@@ -106,7 +106,7 @@ void mostrarConteos(const string &s) {
          << " G=" << conteo[2] << " T=" << conteo[3]
          << " GC=" << contenidoGC(conteo, s.length()) << "%" << endl;
 }
-// PARTE C (Persona C)
+// PARTE C 
 //
 // procesarPareja: valida una pareja (ya con formato correcto) y
 // muestra su resultado o el primer error encontrado.
@@ -142,30 +142,8 @@ void procesarPareja(int numPareja, string seq1, string seq2) {
     mostrarConteos(seq2);
 }
 
-// -------------------------------------------------------------------
-// separarPareja (código base, sin cambios)
-// -------------------------------------------------------------------
-bool separarPareja(const string &linea, string &seq1, string &seq2) {
-    int pos = -1;
 
-    for (int i = 0; i < linea.length(); i++) {
-        if (linea[i] == ' ' || linea[i] == ',') {
-            if (pos != -1) {
-                return false;
-            }
-            pos = i;
-        }
-    }
-
-    if (pos <= 0 || pos == linea.length() - 1) {
-        return false;
-    }
-
-    seq1 = linea.substr(0, pos);
-    seq2 = linea.substr(pos + 1);
-    return true;
-}
-
+//programa principal
 
 int main() {
     //primero pide el nombre del archivo y lo abre
@@ -218,3 +196,4 @@ int main() {
 
     archivo.close();
     return 0;
+}
