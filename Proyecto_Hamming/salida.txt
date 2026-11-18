@@ -1,3 +1,5 @@
+Nombre del archivo: pruebas.txt
+
 Pareja 1: GATTCA vs GATTCA -> Distancia: 0 | Identidad: 100.0%
    GATTCA A=2 C=1 G=1 T=2 GC=33.3%
    GATTCA A=2 C=1 G=1 T=2 GC=33.3%
