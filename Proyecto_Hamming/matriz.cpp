@@ -1,3 +1,9 @@
+//lee un archivo muestras.txt con hasta 10 secuencias
+//Guarda las secuencias en arreglo string seq[10], 
+//calcula la distancia de Hamming entre cada par y lass almacéna en una matriz int D[10][10]. 
+
+//Integrantes: Marian Caicedo, Anyerith Sequeda, Michell Mejía, Angie Rodríguez
+
 
 #include <iostream>  // Permite mostrar información en pantalla
 #include <fstream>   // Permite abrir y leer archivos de texto
